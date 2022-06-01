@@ -70,17 +70,19 @@ class PrettyJsonSerializer : public JsonSerializer<TWriter> {
   uint8_t _nesting;
 };
 
-template <typename TDestination>
-size_t serializeJsonPretty(VariantConstRef source, TDestination &destination) {
+template <typename TSource, typename TDestination>
+size_t serializeJsonPretty(const TSource &source, TDestination &destination) {
   return serialize<PrettyJsonSerializer>(source, destination);
 }
 
-inline size_t serializeJsonPretty(VariantConstRef source, void *buffer,
-                                  size_t bufferSize) {
+template <typename TSource>
+size_t serializeJsonPretty(const TSource &source, void *buffer,
+                           size_t bufferSize) {
   return serialize<PrettyJsonSerializer>(source, buffer, bufferSize);
 }
 
-inline size_t measureJsonPretty(VariantConstRef source) {
+template <typename TSource>
+size_t measureJsonPretty(const TSource &source) {
   return measure<PrettyJsonSerializer>(source);
 }
 

@@ -197,17 +197,19 @@ class MsgPackSerializer : public Visitor<size_t> {
   CountingDecorator<TWriter> _writer;
 };
 
-template <typename TDestination>
-inline size_t serializeMsgPack(VariantConstRef source, TDestination& output) {
+template <typename TSource, typename TDestination>
+inline size_t serializeMsgPack(const TSource& source, TDestination& output) {
   return serialize<MsgPackSerializer>(source, output);
 }
 
-inline size_t serializeMsgPack(VariantConstRef source, void* output,
+template <typename TSource>
+inline size_t serializeMsgPack(const TSource& source, void* output,
                                size_t size) {
   return serialize<MsgPackSerializer>(source, output, size);
 }
 
-inline size_t measureMsgPack(VariantConstRef source) {
+template <typename TSource>
+inline size_t measureMsgPack(const TSource& source) {
   return measure<MsgPackSerializer>(source);
 }
 

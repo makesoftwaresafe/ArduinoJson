@@ -62,7 +62,6 @@ class ArrayRefBase {
 };
 
 class ArrayConstRef : public ArrayRefBase<const CollectionData>,
-                      public VariantOperators<ArrayConstRef>,
                       public Visitable {
   friend class ArrayRef;
   typedef ArrayRefBase<const CollectionData> base_type;
@@ -117,7 +116,6 @@ class ArrayConstRef : public ArrayRefBase<const CollectionData>,
 
 class ArrayRef : public ArrayRefBase<CollectionData>,
                  public ArrayShortcuts<ArrayRef>,
-                 public VariantOperators<ArrayRef>,
                  public Visitable {
   typedef ArrayRefBase<CollectionData> base_type;
 
